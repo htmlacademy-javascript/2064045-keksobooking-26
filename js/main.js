@@ -20,7 +20,6 @@ const getNumberInRange = (from, to, fractionDigits = 5) => {
   return Number(value.toFixed(fractionDigits));
 };
 
-
 /**
  * Вернет целое число в диапазоне `from` `to`.
  * @param {number} from целое положительное число.
@@ -34,6 +33,7 @@ const getIntegerInRange = (from, to) => {
   }
   return getNumberInRange(from, to, 0);
 };
+
 /**
  * Вернёт случайный элемент массива.
  * @template Item
@@ -77,19 +77,19 @@ const OFFER_TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const CHECK_HOURS = ['12:00', '13:00', '14:00'];
 
 /**
- * Количество комнат максимальное.
+ * Диапазон количества комнат.
  */
-const ROOMS_MAX = 10;
+const ROOMS_RANGE = [1, 10];
 
 /**
- * Количество гостей максимальное.
+ * Диапазон количества гостей.
  */
-const GUESTS_MAX = 10;
+const GUESTS_RANGE = [1, 10];
 
 /**
- * Максимальная цена аренды жилья.
+ * Диапазон цены.
  */
-const PRICE_MAX = 10000;
+const PRICE_RANGE = [0, 10000];
 
 /**
  * Варианты удобств.
@@ -122,10 +122,12 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
 ];
+
 /**
  * Диапазон широты.
  */
 const LAT_RANGE = [35.65000, 35.70000];
+
 /**
  * Диапазон долготы.
  */
@@ -147,28 +149,33 @@ const generateAd = (id) => {
     lat: getNumberInRange(...LAT_RANGE),
     lng: getNumberInRange(...LNG_RANGE)
   };
+
   /** @type AdOffer */
   const offer = {
     title: getItemFromArray(TITLES),
     address: `${location.lat}, ${location.lng}`,
-    price: getIntegerInRange(0, PRICE_MAX),
+    price: getIntegerInRange(...PRICE_RANGE),
     type: getItemFromArray(OFFER_TYPES),
-    rooms: getIntegerInRange(0, ROOMS_MAX),
-    guests: getIntegerInRange(0, GUESTS_MAX),
+    rooms: getIntegerInRange(...ROOMS_RANGE),
+    guests: getIntegerInRange(...GUESTS_RANGE),
     checkin: getItemFromArray(CHECK_HOURS),
     checkout: getItemFromArray(CHECK_HOURS),
     features: getItemsFromArray(FEATURES),
     description: getItemFromArray(DESCRIPTIONS),
     photos: getItemsFromArray(PHOTOS),
-
   };
 
-  return { author, offer, location };
+  return {author, offer, location};
 };
 
+/**
+ * Сгенерирует список объявлений.
+ * @param {number} length Длина списка.
+ */
 const generateAds = (length = 10) =>
-  Array.from({ length }, (item, index) => generateAd(index + 1));
+  Array.from({length}, (item, index) => generateAd(index + 1));
 
+generateAds();
 
 /**
  * Объявление.
