@@ -20,7 +20,6 @@ const getNumberInRange = (from, to, fractionDigits = 5) => {
   return Number(value.toFixed(fractionDigits));
 };
 
-console.log(getNumberInRange(2, 4))
 
 /**
  * Вернет целое число в диапазоне `from` `to`.
@@ -170,7 +169,6 @@ const generateAd = (id) => {
 const generateAds = (length = 10) =>
   Array.from({ length }, (item, index) => generateAd(index + 1));
 
-console.log(generateAds());
 
 /**
  * Объявление.
